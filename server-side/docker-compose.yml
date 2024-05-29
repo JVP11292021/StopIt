@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    container_name: happy-plant-be
+    build:
+      context: ./mono-app
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/happy-pants
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=PostIpmedt5
+    restart: always
+  db:
+    ports:
+      - "5432:5432"
+    image: postgres
+    container_name: happy-plants-DB
+    environment:
+      - POSTGRES_DB=happy-pants
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=PostIpmedt5
+    volumes:
+      - C:\postgres_datapart:/var/lib/postgresql/data
+    restart: always
