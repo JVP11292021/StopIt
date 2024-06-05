@@ -18,7 +18,9 @@ public class CheckupController implements TControllerEntityResponseWildcard<Inte
 	private final CheckupService checkupService;
 	@Override
 	@PostMapping
-	public ResponseEntity<?> insertEntity(CheckupDto checkupdto) {
+	public ResponseEntity<?> insertEntity(
+			@RequestBody CheckupDto checkupdto
+	) {
 		 return ResponseEntity.ok(checkupService.insert(checkupdto));
 	}
 	@Override
@@ -27,13 +29,18 @@ public class CheckupController implements TControllerEntityResponseWildcard<Inte
 		 return ResponseEntity.ok(checkupService.getAll());
 	}
 	@Override
-	@DeleteMapping
-	public ResponseEntity<?> removeEntityById(Integer id) {
+	@DeleteMapping(path="/{id}")
+	public ResponseEntity<?> removeEntityById(
+			@PathVariable("id") Integer id
+	) {
 		 return ResponseEntity.ok(checkupService.removeById(id));
 	}
 	@Override
-	@PutMapping
-	public ResponseEntity<?> updateEntity(Integer id, CheckupModel checkupmodel) {
+	@PatchMapping(path="/{id}")
+	public ResponseEntity<?> updateEntity(
+			@PathVariable("id") Integer id,
+			@RequestBody CheckupModel checkupmodel
+	) {
 		 return ResponseEntity.ok(checkupService.update(id, checkupmodel));
 	}
 }

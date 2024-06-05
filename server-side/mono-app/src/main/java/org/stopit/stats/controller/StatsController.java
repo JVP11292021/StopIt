@@ -18,7 +18,9 @@ public class StatsController implements TControllerEntityResponseWildcard<Intege
 	private final StatsService statsService;
 	@Override
 	@PostMapping
-	public ResponseEntity<?> insertEntity(StatsDto statsdto) {
+	public ResponseEntity<?> insertEntity(
+			@RequestBody StatsDto statsdto
+	) {
 		 return ResponseEntity.ok(statsService.insert(statsdto));
 	}
 	@Override
@@ -27,13 +29,16 @@ public class StatsController implements TControllerEntityResponseWildcard<Intege
 		 return ResponseEntity.ok(statsService.getAll());
 	}
 	@Override
-	@DeleteMapping
-	public ResponseEntity<?> removeEntityById(Integer id) {
+	@DeleteMapping(path="/{id}")
+	public ResponseEntity<?> removeEntityById(@PathVariable("id") Integer id) {
 		 return ResponseEntity.ok(statsService.removeById(id));
 	}
 	@Override
-	@PutMapping
-	public ResponseEntity<?> updateEntity(Integer id, Stats stats) {
+	@PatchMapping(path="/{id}")
+	public ResponseEntity<?> updateEntity(
+			@PathVariable("id") Integer id,
+			@RequestBody Stats stats
+	) {
 		 return ResponseEntity.ok(statsService.update(id, stats));
 	}
 }

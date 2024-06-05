@@ -18,7 +18,9 @@ public class PushController implements TControllerEntityResponseWildcard<Integer
 	private final PushService pushService;
 	@Override
 	@PostMapping
-	public ResponseEntity<?> insertEntity(PushDto pushdto) {
+	public ResponseEntity<?> insertEntity(
+			@RequestBody PushDto pushdto
+	) {
 		 return ResponseEntity.ok(pushService.insert(pushdto));
 	}
 	@Override
@@ -27,13 +29,18 @@ public class PushController implements TControllerEntityResponseWildcard<Integer
 		 return ResponseEntity.ok(pushService.getAll());
 	}
 	@Override
-	@DeleteMapping
-	public ResponseEntity<?> removeEntityById(Integer id) {
+	@DeleteMapping(path="/{id}")
+	public ResponseEntity<?> removeEntityById(
+			@PathVariable("id") Integer id
+	) {
 		 return ResponseEntity.ok(pushService.removeById(id));
 	}
 	@Override
-	@PutMapping
-	public ResponseEntity<?> updateEntity(Integer id, Push push) {
+	@PatchMapping(path="/{id}")
+	public ResponseEntity<?> updateEntity(
+			@PathVariable("id") Integer id,
+			@RequestBody Push push
+	) {
 		 return ResponseEntity.ok(pushService.update(id, push));
 	}
 }
