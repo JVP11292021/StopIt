@@ -2,7 +2,7 @@ package org.stopit.auth.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.utils.NetProperties;
+import org.stopit.components.config.NetProperties;
 import org.jetbrains.annotations.NotNull;
 import org.restframework.web.annotations.markers.CompilationComponent;
 import org.springframework.context.annotation.Bean;
