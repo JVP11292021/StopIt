@@ -1,4 +1,4 @@
-package org.stopit;
+package org.utils;
 
 import lombok.Data;
 import org.restframework.web.annotations.markers.CompilationComponent;

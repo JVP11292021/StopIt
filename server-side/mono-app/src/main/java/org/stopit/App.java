@@ -10,7 +10,7 @@ import org.restframework.web.core.templates.TControllerEntityResponseWildcard;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import static org.stopit.SafeWebAppRunner.safeApplicationRunner;
+import static org.utils.SafeWebAppRunner.safeApplicationRunner;
 
 @SpringBootApplication
 @EnableRestConfiguration

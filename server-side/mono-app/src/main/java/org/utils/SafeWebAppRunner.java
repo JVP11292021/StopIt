@@ -1,4 +1,4 @@
-package org.stopit;
+package org.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.restframework.web.WebApp;

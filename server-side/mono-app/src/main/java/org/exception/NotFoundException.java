@@ -1,4 +1,4 @@
-package org.stopit;
+package org.exception;
 
 @SuppressWarnings("unused")
 public class NotFoundException extends RuntimeException {
