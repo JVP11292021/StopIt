@@ -29,7 +29,7 @@ import static org.utils.SafeWebAppRunner.safeApplicationRunner;
                                         @FieldData(datatype = "double", name = "moneySaved"),
                                         @FieldData(datatype = "int", name = "currentStreak"),
                                         @FieldData(datatype = "int", name = "longestStreak"),
-                                        @FieldData(datatype = "int", name = "healthLevel")
+                                        @FieldData(datatype = "HealthScale", name = "healthLevel")
                                 },
                                 abbrev = ""
                         )
@@ -58,7 +58,7 @@ import static org.utils.SafeWebAppRunner.safeApplicationRunner;
                                 fields = {
                                         @FieldData(datatype = "boolean", name = "hasSmoked"),
                                         @FieldData(name = "comment"),
-                                        @FieldData(datatype = "int", name = "difficultyScale")
+                                        @FieldData(datatype = "StopWithSmokingScale", name = "difficultyScale")
                                 }
                         )
                 )

@@ -4,6 +4,8 @@ import org.stopit.stats.*;
 import lombok.*;
 import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
+import org.types.HealthScale;
+
 import java.util.*;
 
 @CompilationComponent
@@ -14,11 +16,7 @@ import java.util.*;
 @Builder
 public class StatsDto extends DtoFrame {
 	private double moneySaved;
-
 	private int currentStreak;
-
 	private int longestStreak;
-
-	private int healthLevel;
-
+	private HealthScale healthLevel;
 }
