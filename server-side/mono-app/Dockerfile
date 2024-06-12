@@ -1,9 +1,9 @@
 FROM eclipse-temurin:17.0.4.1_1-jre as builder
 MAINTAINER elka-air
 WORKDIR extracted
-ADD target/*.jar app.jar
 RUN mvn clean package -DskipTests
 RUN java -Djarmode=layertools -jar app.jar extract
+ADD target/*.jar app.jar
 
 FROM eclipse-temurin:17.0.4.1_1-jre
 WORKDIR app
