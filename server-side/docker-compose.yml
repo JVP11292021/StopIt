@@ -1,7 +1,8 @@
 version: '3'
 services:
   app:
-    container_name: happy-plant-be
+    container_name: be-app
+    image: 'docker-spring-boot-postgres:latest'
     build:
       context: ./mono-app
       dockerfile: Dockerfile
@@ -10,19 +11,19 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/happy-pants
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=PostIpmedt5
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     restart: always
   db:
     ports:
       - "5432:5432"
     image: postgres
-    container_name: happy-plants-DB
+    container_name: DB
     environment:
-      - POSTGRES_DB=happy-pants
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=PostIpmedt5
-    volumes:
-      - C:\postgres_datapart:/var/lib/postgresql/data
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+#    volumes:
+#      - C:\postgres_datapart:/var/lib/postgresql/data
     restart: always
