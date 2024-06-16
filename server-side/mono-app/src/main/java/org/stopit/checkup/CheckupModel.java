@@ -5,6 +5,8 @@ import lombok.*;
 import jakarta.persistence.*;
 import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
+import org.types.StopWithSmokingScale;
+
 import java.util.*;
 
 @CompilationComponent
@@ -20,9 +22,8 @@ public class CheckupModel extends ModelFrame<Integer> {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private boolean hasSmoked;
-
 	private String comment;
-
-	private int difficultyScale;
+	private StopWithSmokingScale difficultyScale;
+	private Date date;
 
 }

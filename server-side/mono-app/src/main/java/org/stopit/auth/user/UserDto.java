@@ -3,6 +3,8 @@ package org.stopit.auth.user;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
+
 @Builder
 @Data
 public class UserDto {
@@ -11,4 +13,5 @@ public class UserDto {
     private String lastname;
     private String email;
     private Role role;
+    private Date accountCreated;
 }

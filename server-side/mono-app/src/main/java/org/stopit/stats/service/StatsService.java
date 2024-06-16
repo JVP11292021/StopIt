@@ -1,5 +1,8 @@
 package org.stopit.stats.service;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.stopit.auth.user.User;
+import org.stopit.auth.user.UserRepo;
 import org.stopit.push.PushDto;
 import org.stopit.stats.*;
 import org.stopit.stats.repository.*;
@@ -7,6 +10,9 @@ import lombok.*;
 import org.springframework.stereotype.Service;
 import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
+import org.utils.TAuthService;
+
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,10 +20,13 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @Service
-public class StatsService implements TServiceCRUD<Integer, StatsDto, Stats> {
+public class StatsService implements TAuthService<Integer, StatsDto, Stats> {
 	private final StatsRepository repository;
+	private final UserRepo userRepo;
 	@Override
-	public int insert(StatsDto statsdto) {
+	public int insert(StatsDto statsdto, Principal connectedUser) {
+		var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+
 		var model = Stats.builder()
 				.healthLevel(statsdto.getHealthLevel())
 				.moneySaved(statsdto.getMoneySaved())
@@ -25,7 +34,9 @@ public class StatsService implements TServiceCRUD<Integer, StatsDto, Stats> {
 				.longestStreak(statsdto.getLongestStreak())
 				.build();
 
-		this.repository.save(model);
+		user.getStats().add(model);
+
+		this.userRepo.save(user);
 		return 1;
 	}
 	@Override

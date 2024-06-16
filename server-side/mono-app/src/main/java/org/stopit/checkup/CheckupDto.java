@@ -4,6 +4,8 @@ import org.stopit.checkup.*;
 import lombok.*;
 import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
+import org.types.StopWithSmokingScale;
+
 import java.util.*;
 
 @CompilationComponent
@@ -14,9 +16,7 @@ import java.util.*;
 @Builder
 public class CheckupDto extends DtoFrame {
 	private boolean hasSmoked;
-
 	private String comment;
-
-	private int difficultyScale;
-
+	private StopWithSmokingScale difficultyScale;
+	private Date date;
 }

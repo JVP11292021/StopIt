@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
+import org.utils.TAuthController;
+
+import java.security.Principal;
 import java.util.*;
 
 @CompilationComponent
@@ -14,14 +17,15 @@ import java.util.*;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/stop-it/v1/checkup")
-public class CheckupController implements TControllerEntityResponseWildcard<Integer, CheckupDto, CheckupModel> {
+public class CheckupController implements TAuthController<Integer, CheckupDto, CheckupModel> {
 	private final CheckupService checkupService;
 	@Override
 	@PostMapping
 	public ResponseEntity<?> insertEntity(
-			@RequestBody CheckupDto checkupdto
+			@RequestBody CheckupDto checkupdto,
+			Principal connectedUser
 	) {
-		 return ResponseEntity.ok(checkupService.insert(checkupdto));
+		 return ResponseEntity.ok(checkupService.insert(checkupdto, connectedUser));
 	}
 	@Override
 	@GetMapping

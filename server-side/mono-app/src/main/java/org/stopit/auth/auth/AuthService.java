@@ -20,6 +20,7 @@ import org.stopit.auth.token.TokenType;
 import org.stopit.auth.user.UserRepo;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +42,7 @@ public class AuthService {
                     .email(request.getEmail())
                     .password(this.encoder.encode(request.getPassword()))
                     .role(request.getRole())
+                    .accountCreated(new Date())
                     .build();
             var savedUser = this.userRepo.save(user);
             var jwtToken = jwtService.generateToken(user);

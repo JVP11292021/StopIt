@@ -42,6 +42,7 @@ public class UserService {
                 .lastname(user.getLastname())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .accountCreated(user.getAccountCreated())
                 .build();
     }
 
@@ -55,6 +56,7 @@ public class UserService {
                         .lastname(user.getLastname())
                         .email(user.getEmail())
                         .role(user.getRole())
+                        .accountCreated(user.getAccountCreated())
                         .build())
                 .toList();
     }

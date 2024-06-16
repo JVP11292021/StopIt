@@ -17,6 +17,7 @@ import org.stopit.push.Push;
 import org.stopit.stats.Stats;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -36,6 +37,8 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private Date accountCreated;
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
