@@ -5,12 +5,8 @@ import org.stopit.checkup.service.*;
 import lombok.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
-import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
 import org.utils.TAuthController;
-
-import java.security.Principal;
-import java.util.*;
 
 @CompilationComponent
 @Data
@@ -21,9 +17,9 @@ public class CheckupController implements TAuthController<Integer, CheckupDto, C
 	private final CheckupService checkupService;
 
 	@Override
-	@GetMapping
-	public ResponseEntity<?> getAllEntities() {
-		 return ResponseEntity.ok(checkupService.getAll());
+	@GetMapping(path="/{email}")
+	public ResponseEntity<?> getAllEntities(@PathVariable("email") String email) {
+		 return ResponseEntity.ok(checkupService.getAll(email));
 	}
 	@Override
 	@DeleteMapping(path="/{id}")

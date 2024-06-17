@@ -1,18 +1,15 @@
 package org.stopit.push.service;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.exception.NotFoundException;
 import org.stopit.auth.user.User;
 import org.stopit.auth.user.UserRepo;
-import org.stopit.checkup.CheckupDto;
 import org.stopit.push.*;
 import org.stopit.push.repository.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
-import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
 import org.utils.TAuthService;
 
-import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,8 +22,11 @@ public class PushService implements TAuthService<Integer, PushDto, Push> {
 	private final UserRepo userRepo;
 
 	@Override
-	public List<PushDto> getAll() {
-		return this.repository.findAll()
+	public List<PushDto> getAll(String email) {
+		User user = this.userRepo.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Could not find user by email '%s'".formatted(email)));
+
+		return user.getPushNotifications()
 				.stream()
 				.map(push -> PushDto.builder()
 						.text(push.getText())

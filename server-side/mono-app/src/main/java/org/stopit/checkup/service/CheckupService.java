@@ -1,17 +1,15 @@
 package org.stopit.checkup.service;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.exception.NotFoundException;
 import org.stopit.auth.user.User;
 import org.stopit.auth.user.UserRepo;
 import org.stopit.checkup.*;
 import org.stopit.checkup.repository.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
-import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
 import org.utils.TAuthService;
 
-import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,8 +22,11 @@ public class CheckupService implements TAuthService<Integer, CheckupDto, Checkup
 	private final UserRepo userRepo;
 
 	@Override
-	public List<CheckupDto> getAll() {
-		 return this.repository.findAll()
+	public List<CheckupDto> getAll(String email) {
+		User user = this.userRepo.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Could not find user by email '%s'".formatted(email)));
+
+		return user.getCheckups()
 				 .stream()
 				 .map(checkupModel -> CheckupDto.builder()
 						 .comment(checkupModel.getComment())

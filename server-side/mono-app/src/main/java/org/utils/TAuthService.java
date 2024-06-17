@@ -6,7 +6,6 @@ import org.restframework.web.core.templates.ModelFrame;
 import org.restframework.web.core.templates.ServiceTemplateUtils;
 import org.restframework.web.core.templates.SpringComponents;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ import java.util.Optional;
 )
 public interface TAuthService <ID, DTO, Model extends ModelFrame<ID>> {
     ServiceTemplateUtils utils = new ServiceTemplateUtils();
-    List<DTO> getAll();
+    List<DTO> getAll(String email);
 
     boolean removeById(ID id);
 

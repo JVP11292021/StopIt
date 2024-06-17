@@ -1,19 +1,16 @@
 package org.stopit.stats.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.exception.NotFoundException;
 import org.stopit.auth.user.User;
 import org.stopit.auth.user.UserRepo;
-import org.stopit.push.PushDto;
 import org.stopit.stats.*;
 import org.stopit.stats.repository.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
-import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
 import org.utils.TAuthService;
 
-import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,8 +24,11 @@ public class StatsService implements TAuthService<Integer, StatsDto, Stats> {
 	private final UserRepo userRepo;
 
 	@Override
-	public List<StatsDto> getAll() {
-		return this.repository.findAll()
+	public List<StatsDto> getAll(String email) {
+		User user = this.userRepo.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Could not find user by email '%s'".formatted(email)));
+
+		return user.getStats()
 				.stream()
 				.map(stats -> StatsDto.builder()
 						.healthLevel(stats.getHealthLevel())

@@ -5,12 +5,8 @@ import org.stopit.push.service.*;
 import lombok.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
-import org.restframework.web.core.templates.*;
 import org.restframework.web.annotations.markers.*;
 import org.utils.TAuthController;
-
-import java.security.Principal;
-import java.util.*;
 
 @CompilationComponent
 @Data
@@ -22,9 +18,9 @@ public class PushController implements TAuthController<Integer, PushDto, Push> {
 
 
 	@Override
-	@GetMapping
-	public ResponseEntity<?> getAllEntities() {
-		 return ResponseEntity.ok(pushService.getAll());
+	@GetMapping(path="/{email}")
+	public ResponseEntity<?> getAllEntities(@PathVariable("email") String email) {
+		 return ResponseEntity.ok(pushService.getAll(email));
 	}
 	@Override
 	@DeleteMapping(path="/{id}")

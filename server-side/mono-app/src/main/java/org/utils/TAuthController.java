@@ -6,8 +6,6 @@ import org.restframework.web.core.templates.ModelFrame;
 import org.restframework.web.core.templates.SpringComponents;
 import org.springframework.http.ResponseEntity;
 
-import java.security.Principal;
-
 @Template(
         templateName = "Controller",
         rule = SpringComponents.CONTROLLER,
@@ -15,7 +13,7 @@ import java.security.Principal;
 )
 public interface TAuthController<ID, DTO, Model extends ModelFrame<ID>>  {
 
-    ResponseEntity<?> getAllEntities();
+    ResponseEntity<?> getAllEntities(String email);
 
     ResponseEntity<?> removeEntityById(ID id);
 
