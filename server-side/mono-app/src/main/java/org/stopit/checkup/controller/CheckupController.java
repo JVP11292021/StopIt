@@ -19,14 +19,7 @@ import java.util.*;
 @RequestMapping("/stop-it/v1/checkup")
 public class CheckupController implements TAuthController<Integer, CheckupDto, CheckupModel> {
 	private final CheckupService checkupService;
-	@Override
-	@PostMapping
-	public ResponseEntity<?> insertEntity(
-			@RequestBody CheckupDto checkupdto,
-			Principal connectedUser
-	) {
-		 return ResponseEntity.ok(checkupService.insert(checkupdto, connectedUser));
-	}
+
 	@Override
 	@GetMapping
 	public ResponseEntity<?> getAllEntities() {

@@ -22,22 +22,7 @@ import java.util.stream.Collectors;
 public class CheckupService implements TAuthService<Integer, CheckupDto, CheckupModel> {
 	private final CheckupRepository repository;
 	private final UserRepo userRepo;
-	@Override
-	public int insert(CheckupDto checkupdto, Principal connectedUser) {
-		var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-		var model = CheckupModel.builder()
-				.comment(checkupdto.getComment())
-				.difficultyScale(checkupdto.getDifficultyScale())
-				.hasSmoked(checkupdto.isHasSmoked())
-				.date(checkupdto.getDate())
-				.build();
-
-		user.getCheckups().add(model);
-		this.userRepo.save(user);
-
-		return 1;
-	}
 	@Override
 	public List<CheckupDto> getAll() {
 		 return this.repository.findAll()

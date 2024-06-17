@@ -14,7 +14,6 @@ import java.security.Principal;
         type = ClassTypes.CLASS
 )
 public interface TAuthController<ID, DTO, Model extends ModelFrame<ID>>  {
-    ResponseEntity<?> insertEntity(DTO entity, Principal connectedUser);
 
     ResponseEntity<?> getAllEntities();
 

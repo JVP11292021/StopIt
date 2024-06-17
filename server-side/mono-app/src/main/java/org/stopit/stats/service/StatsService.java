@@ -1,5 +1,6 @@
 package org.stopit.stats.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.stopit.auth.user.User;
 import org.stopit.auth.user.UserRepo;
@@ -16,6 +17,7 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @CompilationComponent
 @Data
 @AllArgsConstructor
@@ -23,22 +25,7 @@ import java.util.stream.Collectors;
 public class StatsService implements TAuthService<Integer, StatsDto, Stats> {
 	private final StatsRepository repository;
 	private final UserRepo userRepo;
-	@Override
-	public int insert(StatsDto statsdto, Principal connectedUser) {
-		var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-		var model = Stats.builder()
-				.healthLevel(statsdto.getHealthLevel())
-				.moneySaved(statsdto.getMoneySaved())
-				.currentStreak(statsdto.getCurrentStreak())
-				.longestStreak(statsdto.getLongestStreak())
-				.build();
-
-		user.getStats().add(model);
-
-		this.userRepo.save(user);
-		return 1;
-	}
 	@Override
 	public List<StatsDto> getAll() {
 		return this.repository.findAll()

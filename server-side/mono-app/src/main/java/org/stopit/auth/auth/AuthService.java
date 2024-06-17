@@ -48,6 +48,7 @@ public class AuthService {
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
             log.info("Registered user: {} with id: {}", user.getEmail(), user.getId());
+            log.info("By token access {}", jwtToken);
             saveUserToken(savedUser, jwtToken);
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)

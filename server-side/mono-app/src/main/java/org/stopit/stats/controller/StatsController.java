@@ -19,14 +19,7 @@ import java.util.*;
 @RequestMapping("/stop-it/v1/stats")
 public class StatsController implements TAuthController<Integer, StatsDto, Stats> {
 	private final StatsService statsService;
-	@Override
-	@PostMapping
-	public ResponseEntity<?> insertEntity(
-			@RequestBody StatsDto statsdto,
-			Principal connectedUser
-	) {
-		 return ResponseEntity.ok(statsService.insert(statsdto, connectedUser));
-	}
+
 	@Override
 	@GetMapping
 	public ResponseEntity<?> getAllEntities() {

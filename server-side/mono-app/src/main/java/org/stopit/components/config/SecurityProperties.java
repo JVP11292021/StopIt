@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 @CompilationComponent
 public class SecurityProperties {
-    @Value("${application.security.jwt.secret-key}")
-    private String secretKey;
+//    @Value("${application.security.jwt.secret-key}")
+    private String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
     @Value("${application.security.jwt.expiration}")
-    private long jwtExpiration;
+    private long jwtExpiration = 86400000;
     @Value("${application.security.jwt.refresh-token.expiration}")
-    private long refreshExpiration;
+    private long refreshExpiration = 604800000;
 }

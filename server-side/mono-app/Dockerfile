@@ -20,5 +20,13 @@ COPY --from=builder extracted/dependencies/ ./
 COPY --from=builder extracted/spring-boot-loader/ ./
 COPY --from=builder extracted/snapshot-dependencies/ ./
 COPY --from=builder extracted/application/ ./
+
 EXPOSE 8081
+
+COPY src/main/resources/application.properties ./src/main/resources/application.properties
+
+ENV APPLICATION_SECURITY_JWT_SECRET_KEY=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+ENV APPLICATION_SECURITY_JWT_EXPIRATION=86400000
+ENV APPLICATION_SECURITY_JWT_REFRESH_TOKEN_EXPIRATION=604800000
+
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]

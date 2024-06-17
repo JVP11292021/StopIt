@@ -23,19 +23,7 @@ import java.util.stream.Collectors;
 public class PushService implements TAuthService<Integer, PushDto, Push> {
 	private final PushRepository repository;
 	private final UserRepo userRepo;
-	@Override
-	public int insert(PushDto pushdto, Principal connectedUser) {
-		var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-		var model = Push.builder()
-				.text(pushdto.getText())
-				.pushMsgInterval(pushdto.getPushMsgInterval())
-				.build();
-
-		user.getPushNotifications().add(model);
-		this.userRepo.save(user);
-		return 1;
-	}
 	@Override
 	public List<PushDto> getAll() {
 		return this.repository.findAll()

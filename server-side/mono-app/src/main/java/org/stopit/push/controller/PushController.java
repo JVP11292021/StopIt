@@ -19,14 +19,8 @@ import java.util.*;
 @RequestMapping("/stop-it/v1/push")
 public class PushController implements TAuthController<Integer, PushDto, Push> {
 	private final PushService pushService;
-	@Override
-	@PostMapping
-	public ResponseEntity<?> insertEntity(
-			@RequestBody PushDto pushdto,
-			Principal connectedUser
-	) {
-		 return ResponseEntity.ok(pushService.insert(pushdto, connectedUser));
-	}
+
+
 	@Override
 	@GetMapping
 	public ResponseEntity<?> getAllEntities() {

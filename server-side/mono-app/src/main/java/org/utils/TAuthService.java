@@ -17,9 +17,6 @@ import java.util.Optional;
 )
 public interface TAuthService <ID, DTO, Model extends ModelFrame<ID>> {
     ServiceTemplateUtils utils = new ServiceTemplateUtils();
-
-    int insert(DTO dto, Principal connectedUser);
-
     List<DTO> getAll();
 
     boolean removeById(ID id);
