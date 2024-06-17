@@ -44,10 +44,10 @@ public class User implements UserDetails {
     private List<Token> tokens;
 
     // TODO: implement service with this attrib
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
-    private List<Stats> stats;
+    private Stats stats;
 
     // TODO: implement service with this attrib
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

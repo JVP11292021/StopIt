@@ -42,7 +42,7 @@ public class PushService implements TAuthService<Integer, PushDto, Push> {
 		return true;
 	}
 	@Override
-	public boolean update(Integer id, Push push) {
+	public boolean update(Integer id, PushDto push) {
 		if (!this.repository.existsById(id))
 			return false;
 		var model = this.repository.findById(id)

@@ -17,7 +17,7 @@ public interface TAuthController<ID, DTO, Model extends ModelFrame<ID>>  {
 
     ResponseEntity<?> removeEntityById(ID id);
 
-    ResponseEntity<?> updateEntity(ID id, Model entity);
+    ResponseEntity<?> updateEntity(ID id, DTO entity);
 
     default ResponseEntity<?> getById(ID id) {
         return ResponseEntity.noContent().build();

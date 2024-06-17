@@ -20,7 +20,7 @@ public interface TAuthService <ID, DTO, Model extends ModelFrame<ID>> {
 
     boolean removeById(ID id);
 
-    boolean update(ID id, Model entity);
+    boolean update(ID id, DTO entity);
 
     default Optional<Boolean> remove(Model entity) {
         return Optional.empty();

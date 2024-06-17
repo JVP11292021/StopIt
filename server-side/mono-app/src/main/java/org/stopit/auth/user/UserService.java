@@ -36,22 +36,6 @@ public class UserService {
         this.repo.save(user);
     }
 
-    public int insert(StatsDto statsdto, Principal connectedUser) {
-        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-
-        var model = Stats.builder()
-                .healthLevel(statsdto.getHealthLevel())
-                .moneySaved(statsdto.getMoneySaved())
-                .currentStreak(statsdto.getCurrentStreak())
-                .longestStreak(statsdto.getLongestStreak())
-                .build();
-
-        user.getStats().add(model);
-
-        this.repo.save(user);
-        return 1;
-    }
-
     public UserDto getConnectedUser(Principal connectedUser) {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         return UserDto.builder()

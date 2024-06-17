@@ -44,7 +44,7 @@ public class CheckupService implements TAuthService<Integer, CheckupDto, Checkup
 		return true;
 	}
 	@Override
-	public boolean update(Integer id, CheckupModel checkupmodel) throws IllegalArgumentException {
+	public boolean update(Integer id, CheckupDto checkupmodel) throws IllegalArgumentException {
 		if (!this.repository.existsById(id))
 			return false;
 		var model = this.repository.findById(id)

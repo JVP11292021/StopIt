@@ -18,6 +18,7 @@ import org.stopit.stats.StatsDto;
 
 import java.security.Principal;
 import java.security.SecureRandom;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,15 +32,23 @@ public class InsertionService {
     public int insertStats(StatsDto statsdto, Principal connectedUser) {
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
+        var longestStreak = 0;
+        for (var model : user.getCheckups()) {
+            if (!model.isHasSmoked()) longestStreak++;
+            else longestStreak = 0;
+        }
+
+        var amountOfCheckups = user.getCheckups().size();
+
         var model = Stats.builder()
                 .id(new SecureRandom().nextInt())
                 .healthLevel(statsdto.getHealthLevel())
-                .moneySaved(statsdto.getMoneySaved())
+                .moneySaved(Math.max(amountOfCheckups * 17.5D, statsdto.getCurrentStreak() * 17.5D))
                 .currentStreak(statsdto.getCurrentStreak())
-                .longestStreak(statsdto.getLongestStreak())
+                .longestStreak(Math.max(longestStreak, statsdto.getCurrentStreak()))
                 .build();
 
-        user.getStats().add(model);
+        user.setStats(model);
         log.info("Inserted: {} for user {}", model, user.getEmail());
         this.userRepo.save(user);
         return 1;

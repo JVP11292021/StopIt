@@ -13,24 +13,23 @@ import org.utils.TAuthController;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/stop-it/v1/stats")
-public class StatsController implements TAuthController<Integer, StatsDto, Stats> {
+public class StatsController {
 	private final StatsService statsService;
 
-	@Override
 	@GetMapping(path="/{email}")
 	public ResponseEntity<?> getAllEntities(@PathVariable("email") String email) {
 		 return ResponseEntity.ok(statsService.getAll(email));
 	}
-	@Override
+
 	@DeleteMapping(path="/{id}")
 	public ResponseEntity<?> removeEntityById(@PathVariable("id") Integer id) {
 		 return ResponseEntity.ok(statsService.removeById(id));
 	}
-	@Override
-	@PatchMapping(path="/{id}")
+
+	@PatchMapping(path="/{email}")
 	public ResponseEntity<?> updateEntity(
-			@PathVariable("id") Integer id,
-			@RequestBody Stats stats
+			@PathVariable("email") String id,
+			@RequestBody StatsDto stats
 	) {
 		 return ResponseEntity.ok(statsService.update(id, stats));
 	}

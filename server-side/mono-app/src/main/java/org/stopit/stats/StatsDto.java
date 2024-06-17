@@ -15,8 +15,6 @@ import java.util.*;
 @NoArgsConstructor
 @Builder
 public class StatsDto extends DtoFrame {
-	private double moneySaved;
 	private int currentStreak;
-	private int longestStreak;
 	private HealthScale healthLevel;
 }

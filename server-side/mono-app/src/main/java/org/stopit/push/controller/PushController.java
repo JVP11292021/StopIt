@@ -33,7 +33,7 @@ public class PushController implements TAuthController<Integer, PushDto, Push> {
 	@PatchMapping(path="/{id}")
 	public ResponseEntity<?> updateEntity(
 			@PathVariable("id") Integer id,
-			@RequestBody Push push
+			@RequestBody PushDto push
 	) {
 		 return ResponseEntity.ok(pushService.update(id, push));
 	}

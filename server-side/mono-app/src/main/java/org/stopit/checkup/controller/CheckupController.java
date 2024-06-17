@@ -32,7 +32,7 @@ public class CheckupController implements TAuthController<Integer, CheckupDto, C
 	@PatchMapping(path="/{id}")
 	public ResponseEntity<?> updateEntity(
 			@PathVariable("id") Integer id,
-			@RequestBody CheckupModel checkupmodel
+			@RequestBody CheckupDto checkupmodel
 	) {
 		 return ResponseEntity.ok(checkupService.update(id, checkupmodel));
 	}

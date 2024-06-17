@@ -9,6 +9,7 @@ import org.stopit.stats.repository.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
 import org.restframework.web.annotations.markers.*;
+import org.types.StatsGetResponse;
 import org.utils.TAuthService;
 
 import java.util.*;
@@ -19,42 +20,48 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @Service
-public class StatsService implements TAuthService<Integer, StatsDto, Stats> {
+public class StatsService {
 	private final StatsRepository repository;
 	private final UserRepo userRepo;
 
-	@Override
-	public List<StatsDto> getAll(String email) {
+	public StatsGetResponse getAll(String email) {
 		User user = this.userRepo.findByEmail(email)
 				.orElseThrow(() -> new NotFoundException("Could not find user by email '%s'".formatted(email)));
 
-		return user.getStats()
-				.stream()
-				.map(stats -> StatsDto.builder()
-						.healthLevel(stats.getHealthLevel())
-						.currentStreak(stats.getCurrentStreak())
-						.longestStreak(stats.getLongestStreak())
-						.moneySaved(stats.getMoneySaved())
-						.build())
-				.collect(Collectors.toList());
+		Stats stats = user.getStats();
+
+		return new StatsGetResponse(
+				stats.getHealthLevel(),
+				stats.getCurrentStreak(),
+				stats.getLongestStreak(),
+				stats.getMoneySaved());
 	}
-	@Override
+
 	public boolean removeById(Integer id) {
 		if (!this.repository.existsById(id))
 			return false;
 		this.repository.deleteById(id);
 		return true;
 	}
-	@Override
-	public boolean update(Integer id, Stats stats) {
-		if (!this.repository.existsById(id))
-			return false;
-		var model = this.repository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Could not find the push model by id '%d'".formatted(id)));
+
+	public boolean update(String email, StatsDto stats) {
+		User user = this.userRepo.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Could not find user by email '%s'".formatted(email)));
+
+		var model = user.getStats();
+
+		var longestStreak = 0;
+		for (var checkUpsModel : user.getCheckups()) {
+			if (!checkUpsModel.isHasSmoked()) longestStreak++;
+			else longestStreak = 0;
+		}
+
+		var amountOfCheckups = user.getCheckups().size();
+
 		model.setCurrentStreak(stats.getCurrentStreak());
-		model.setLongestStreak(Math.max(stats.getCurrentStreak(), stats.getLongestStreak()));
+		model.setLongestStreak(Math.max(longestStreak, stats.getCurrentStreak()));
 		model.setHealthLevel(stats.getHealthLevel());
-		model.setMoneySaved(stats.getMoneySaved());
+		model.setMoneySaved(Math.max(amountOfCheckups * 17.5D, stats.getCurrentStreak() * 17.5D));
 		this.repository.save(model);
 
 		return true;
